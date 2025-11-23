@@ -1,0 +1,49 @@
+{
+  "site": {
+    "title": "Tool Showcase",
+    "description": "Showcase of personal development tools and projects"
+  },
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "about": "About"
+  },
+  "hero": {
+    "title": "Development Tools Collection",
+    "subtitle": "Explore efficient and practical development tools",
+    "description": "This showcases various tools I've developed, including desktop applications, Java libraries, web applications, and browser plugins. Each tool is carefully designed to improve development efficiency and user experience."
+  },
+  "tools": {
+    "category": {
+      "all": "All",
+      "desktop": "Desktop",
+      "library": "Library",
+      "web": "Web App",
+      "plugin": "Plugin"
+    },
+    "viewDetails": "View Details",
+    "demo": "Live Demo",
+    "github": "GitHub",
+    "download": "Download",
+    "documentation": "Documentation"
+  },
+  "detail": {
+    "overview": "Overview",
+    "features": "Features",
+    "tech": "Tech Stack",
+    "installation": "Installation",
+    "demo": "Demo",
+    "screenshots": "Screenshots",
+    "relatedTools": "Related Tools"
+  },
+  "footer": {
+    "description": "Dedicated to creating efficient and practical development tools",
+    "links": "Links",
+    "connect": "Connect"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Toggle Theme"
+  }
+}

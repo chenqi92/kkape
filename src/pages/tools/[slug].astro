@@ -1,0 +1,187 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ToolCard from '@components/ToolCard.astro';
+import { tools, getToolBySlug, getRelatedTools } from '@data/tools';
+import { useTranslations } from '@i18n/index';
+
+export async function getStaticPaths() {
+  return tools.map((tool) => ({
+    params: { slug: tool.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const tool = getToolBySlug(slug as string);
+
+if (!tool) {
+  return Astro.redirect('/404');
+}
+
+const lang = 'zh';
+const t = useTranslations(lang);
+const relatedTools = getRelatedTools(tool.id);
+---
+
+<Layout title={tool.name[lang]} description={tool.description[lang]}>
+  <article class="py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+      <!-- Header -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-6xl">{tool.icon}</span>
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-bold text-[rgb(var(--color-text-primary))] mb-2">
+              {tool.name[lang]}
+            </h1>
+            <p class="text-xl text-[rgb(var(--color-text-secondary))]">
+              {tool.tagline[lang]}
+            </p>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="flex flex-wrap gap-3">
+          {tool.links.website && (
+            <a href={tool.links.website} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              {t('tools.demo')}
+            </a>
+          )}
+          {tool.links.github && (
+            <a href={tool.links.github} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              {t('tools.github')}
+            </a>
+          )}
+          {tool.links.download && (
+            <a href={tool.links.download} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              {t('tools.download')}
+            </a>
+          )}
+          {tool.links.docs && (
+            <a href={tool.links.docs} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              {t('tools.documentation')}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Overview -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+          {t('detail.overview')}
+        </h2>
+        <div class="card p-6">
+          <p class="text-[rgb(var(--color-text-secondary))] text-lg leading-relaxed">
+            {tool.description[lang]}
+          </p>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+          {t('detail.features')}
+        </h2>
+        <div class="card p-6">
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {tool.features[lang].map((feature) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-[rgb(var(--color-text-secondary))]">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+          {t('detail.tech')}
+        </h2>
+        <div class="card p-6">
+          <div class="flex flex-wrap gap-3">
+            {tool.techStack.map((tech) => (
+              <span class="px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-lg font-medium">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Installation -->
+      {tool.installation && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+            {t('detail.installation')}
+          </h2>
+          <div class="card p-6">
+            <div class="prose dark:prose-invert max-w-none text-[rgb(var(--color-text-secondary))]">
+              <pre class="whitespace-pre-wrap">{tool.installation[lang]}</pre>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Demo -->
+      {tool.demo && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+            {t('detail.demo')}
+          </h2>
+          <div class="card p-6">
+            {tool.demo.type === 'interactive' && tool.demo.url && (
+              <div class="text-center">
+                <p class="text-[rgb(var(--color-text-secondary))] mb-4">
+                  {tool.demo.description?.[lang]}
+                </p>
+                <a href={tool.demo.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                  {t('tools.demo')}
+                </a>
+              </div>
+            )}
+            {tool.demo.type === 'video' && tool.demo.url && (
+              <div class="aspect-video">
+                <iframe
+                  src={tool.demo.url}
+                  class="w-full h-full rounded-lg"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            )}
+            {tool.demo.type === 'images' && (
+              <div class="text-center text-[rgb(var(--color-text-secondary))]">
+                <p>{tool.demo.description?.[lang]}</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Related Tools -->
+      {relatedTools.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+            {t('detail.relatedTools')}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {relatedTools.map((relatedTool) => (
+              <ToolCard tool={relatedTool} lang={lang} />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </article>
+</Layout>
+
+<style>
+  pre {
+    background: rgb(var(--color-bg-secondary));
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+  }
+</style>
