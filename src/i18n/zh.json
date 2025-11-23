@@ -1,0 +1,49 @@
+{
+  "site": {
+    "title": "工具展示",
+    "description": "展示个人开发的各种工具和项目"
+  },
+  "nav": {
+    "home": "首页",
+    "tools": "工具",
+    "about": "关于"
+  },
+  "hero": {
+    "title": "开发工具集合",
+    "subtitle": "探索高效、实用的开发工具",
+    "description": "这里展示了我开发的各种工具，包括桌面应用、Java库、Web应用和浏览器插件等。每个工具都经过精心设计，旨在提高开发效率和用户体验。"
+  },
+  "tools": {
+    "category": {
+      "all": "全部",
+      "desktop": "桌面软件",
+      "library": "开发库",
+      "web": "Web应用",
+      "plugin": "插件"
+    },
+    "viewDetails": "查看详情",
+    "demo": "在线演示",
+    "github": "GitHub",
+    "download": "下载",
+    "documentation": "文档"
+  },
+  "detail": {
+    "overview": "概览",
+    "features": "功能特性",
+    "tech": "技术栈",
+    "installation": "安装使用",
+    "demo": "演示",
+    "screenshots": "截图",
+    "relatedTools": "相关工具"
+  },
+  "footer": {
+    "description": "致力于创建高效实用的开发工具",
+    "links": "链接",
+    "connect": "联系方式"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "toggle": "切换主题"
+  }
+}

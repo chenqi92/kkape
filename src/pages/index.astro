@@ -1,0 +1,105 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ToolCard from '@components/ToolCard.astro';
+import { tools } from '@data/tools';
+import { getLangFromUrl, useTranslations } from '@i18n/index';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-primary))] mb-6 animate-slide-up">
+          {t('hero.title')}
+        </h1>
+        <p class="text-xl sm:text-2xl text-[rgb(var(--color-text-secondary))] mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+          {t('hero.subtitle')}
+        </p>
+        <p class="text-lg text-[rgb(var(--color-text-secondary))] mb-12 animate-slide-up" style="animation-delay: 0.2s;">
+          {t('hero.description')}
+        </p>
+        <a href="#tools" class="btn btn-primary text-lg px-8 py-3 inline-block animate-slide-up" style="animation-delay: 0.3s;">
+          {t('nav.tools')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools" class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
+          {t('nav.tools')}
+        </h2>
+        <p class="text-lg text-[rgb(var(--color-text-secondary))] max-w-2xl mx-auto">
+          {t('site.description')}
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button data-category="all" class="category-filter btn btn-primary px-6">
+          {t('tools.category.all')}
+        </button>
+        <button data-category="desktop" class="category-filter btn btn-secondary px-6">
+          {t('tools.category.desktop')}
+        </button>
+        <button data-category="library" class="category-filter btn btn-secondary px-6">
+          {t('tools.category.library')}
+        </button>
+        <button data-category="web" class="category-filter btn btn-secondary px-6">
+          {t('tools.category.web')}
+        </button>
+        <button data-category="plugin" class="category-filter btn btn-secondary px-6">
+          {t('tools.category.plugin')}
+        </button>
+      </div>
+
+      <!-- Tools Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tools.map((tool) => (
+          <div class="tool-card" data-category={tool.category}>
+            <ToolCard tool={tool} lang={lang} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.category-filter');
+  const toolCards = document.querySelectorAll('.tool-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+
+      // Update active state
+      filterButtons.forEach(btn => {
+        if (btn === button) {
+          btn.classList.remove('btn-secondary');
+          btn.classList.add('btn-primary');
+        } else {
+          btn.classList.remove('btn-primary');
+          btn.classList.add('btn-secondary');
+        }
+      });
+
+      // Filter tools
+      toolCards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+          card.classList.add('animate-fade-in');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
