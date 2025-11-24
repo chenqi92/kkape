@@ -120,7 +120,7 @@ export const tools: Tool[] = [
     icon: '🔧',
     links: {
       website: 'https://proto.kkape.com/zh/',
-      github: 'https://github.com/chenqi92/proto'
+      github: 'https://github.com/chenqi92/keke-proto-tool'
     },
     features: {
       zh: [
