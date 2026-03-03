@@ -302,8 +302,8 @@ Basic Usage:
         '视频在线播放与画中画',
         '音乐播放与歌词显示',
         '照片浏览与管理',
+        '电子书阅读',
         '文件上传与下载',
-        '远程终端 (SSH)',
         '实时活动与桌面小组件',
         '支持 iOS 与 macOS'
       ],
@@ -313,8 +313,8 @@ Basic Usage:
         'Video streaming with Picture-in-Picture',
         'Music playback with lyrics display',
         'Photo browsing and management',
+        'E-book reading',
         'File upload and download',
-        'Remote terminal (SSH)',
         'Live Activities & desktop widgets',
         'iOS & macOS support'
       ]
