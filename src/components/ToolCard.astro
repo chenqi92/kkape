@@ -11,12 +11,23 @@ interface Props {
 const { tool, lang } = Astro.props;
 const t = useTranslations(lang);
 
-const categoryColors = {
+const categoryColors: Record<string, string> = {
   desktop: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
   library: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
   web: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
   plugin: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+  mobile: 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200',
 };
+
+const iconGradients: Record<string, { from: string; to: string }> = {
+  chart:  { from: '#3b82f6', to: '#1d4ed8' },
+  wrench: { from: '#8b5cf6', to: '#6d28d9' },
+  table:  { from: '#10b981', to: '#047857' },
+  flask:  { from: '#f59e0b', to: '#d97706' },
+  server: { from: '#f43f5e', to: '#be123c' },
+};
+
+const grad = iconGradients[tool.icon || ''] || { from: '#6b7280', to: '#374151' };
 
 const detailUrl = lang === 'zh' ? `/tools/${tool.slug}` : `/${lang}/tools/${tool.slug}`;
 ---
@@ -24,7 +35,33 @@ const detailUrl = lang === 'zh' ? `/tools/${tool.slug}` : `/${lang}/tools/${tool
 <div class="card p-6 h-full flex flex-col animate-fade-in">
   <!-- Icon and Category -->
   <div class="flex items-start justify-between mb-4">
-    <div class="text-4xl">{tool.icon}</div>
+    <div class="tool-icon-wrapper w-12 h-12 rounded-xl flex items-center justify-center shadow-md" style={`background: linear-gradient(135deg, ${grad.from}, ${grad.to});`}>
+      {tool.icon === 'chart' && (
+        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13h2v8H3zM9 9h2v12H9zM15 5h2v16h-2zM21 1h2v20h-2z"/>
+        </svg>
+      )}
+      {tool.icon === 'wrench' && (
+        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+        </svg>
+      )}
+      {tool.icon === 'table' && (
+        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/>
+        </svg>
+      )}
+      {tool.icon === 'flask' && (
+        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M10 3v5.172a2 2 0 01-.586 1.414L5 14l1 7h12l1-7-4.414-4.414A2 2 0 0114 8.172V3"/>
+        </svg>
+      )}
+      {tool.icon === 'server' && (
+        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12H3a1 1 0 01-1-1V5a1 1 0 011-1h18a1 1 0 011 1v6a1 1 0 01-1 1h-2M5 12H3a1 1 0 00-1 1v6a1 1 0 001 1h18a1 1 0 001-1v-6a1 1 0 00-1-1h-2M7 8h.01M7 16h.01"/>
+        </svg>
+      )}
+    </div>
     <span class={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[tool.category]}`}>
       {t(`tools.category.${tool.category}`)}
     </span>
@@ -80,5 +117,12 @@ const detailUrl = lang === 'zh' ? `/tools/${tool.slug}` : `/${lang}/tools/${tool
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .tool-icon-wrapper {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tool-icon-wrapper:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 </style>

@@ -1,4 +1,4 @@
-export type ToolCategory = 'desktop' | 'library' | 'web' | 'plugin';
+export type ToolCategory = 'desktop' | 'library' | 'web' | 'plugin' | 'mobile';
 
 export interface ToolDemo {
   type: 'video' | 'interactive' | 'images';
@@ -68,7 +68,7 @@ export const tools: Tool[] = [
       zh: 'InfloWave 是一款专为时间序列数据库设计的现代化管理工具，提供直观的界面和强大的数据可视化功能，支持多种主流时间序列数据库。',
       en: 'InfloWave is a modern management tool designed specifically for time-series databases, offering an intuitive interface and powerful data visualization capabilities, supporting multiple mainstream time-series databases.'
     },
-    icon: '📊',
+    icon: 'chart',
     links: {
       website: 'https://inflowave.kkape.com/',
       github: 'https://github.com/chenqi92/inflowave'
@@ -117,7 +117,7 @@ export const tools: Tool[] = [
       zh: 'Proto 是一款强大的 Protobuf 在线工具，提供 Protobuf 消息的编码、解码、格式化等功能，支持多种编程语言的代码生成。',
       en: 'Proto is a powerful online tool for Protobuf, providing encoding, decoding, formatting and other functions for Protobuf messages, supporting code generation for multiple programming languages.'
     },
-    icon: '🔧',
+    icon: 'wrench',
     links: {
       website: 'https://proto.kkape.com/zh/',
       github: 'https://github.com/chenqi92/keke-proto-tool'
@@ -167,7 +167,7 @@ export const tools: Tool[] = [
       zh: '基于 EasyExcel 的 Spring Boot Excel 导入导出增强工具，通过注解即可实现 Excel 的导入导出功能，支持多种高级特性如数据验证、字典转换、数据脱敏等。',
       en: 'An enhanced Excel import/export tool for Spring Boot based on EasyExcel. Implement Excel import/export functionality through annotations, supporting advanced features such as data validation, dictionary conversion, data masking, etc.'
     },
-    icon: '📑',
+    icon: 'table',
     links: {
       github: 'https://github.com/chenqi92/allbs-excel',
       docs: 'https://github.com/chenqi92/allbs-excel/blob/master/README.md'
@@ -248,7 +248,7 @@ Basic Usage:
       zh: 'Allbs Excel 的配套测试展示工具，提供了完整的功能演示和在线测试环境，帮助开发者快速了解和体验 Allbs Excel 的各种特性。',
       en: 'A companion test and demo tool for Allbs Excel, providing comprehensive feature demonstrations and an online testing environment to help developers quickly understand and experience the various features of Allbs Excel.'
     },
-    icon: '🧪',
+    icon: 'flask',
     links: {
       github: 'https://github.com/chenqi92/allbs-excel-test',
       demo: 'https://github.com/chenqi92/allbs-excel-test'
@@ -274,6 +274,53 @@ Basic Usage:
     techStack: ['Spring Boot', 'Allbs Excel', 'Vue.js', 'Element UI'],
     tags: ['java', 'spring-boot', 'excel', 'demo'],
     relatedTools: ['allbs-excel']
+  },
+  {
+    id: 'kknas',
+    slug: 'kknas',
+    category: 'mobile',
+    name: {
+      zh: 'kknas',
+      en: 'kknas'
+    },
+    tagline: {
+      zh: 'NAS 文件与媒体管理',
+      en: 'NAS File & Media Management'
+    },
+    description: {
+      zh: 'kknas 是一款功能丰富的 NAS 管理应用，支持文件浏览、视频播放、音乐管理、远程终端等功能。通过局域网自动发现设备，提供流畅的多媒体体验。',
+      en: 'kknas is a feature-rich NAS management app supporting file browsing, video playback, music management, remote terminal, and more. Auto-discovers devices on LAN and provides a smooth multimedia experience.'
+    },
+    icon: 'server',
+    links: {
+      website: 'https://kkape.com/tools/kknas'
+    },
+    features: {
+      zh: [
+        '局域网 NAS 设备自动发现',
+        'SMB / WebDAV / SFTP 多协议支持',
+        '视频在线播放与画中画',
+        '音乐播放与歌词显示',
+        '照片浏览与管理',
+        '文件上传与下载',
+        '远程终端 (SSH)',
+        '实时活动与桌面小组件',
+        '支持 iOS 与 macOS'
+      ],
+      en: [
+        'Auto-discover NAS devices on LAN',
+        'SMB / WebDAV / SFTP multi-protocol support',
+        'Video streaming with Picture-in-Picture',
+        'Music playback with lyrics display',
+        'Photo browsing and management',
+        'File upload and download',
+        'Remote terminal (SSH)',
+        'Live Activities & desktop widgets',
+        'iOS & macOS support'
+      ]
+    },
+    techStack: ['Flutter', 'Dart', 'Swift', 'SwiftUI'],
+    tags: ['nas', 'ios', 'macos', 'media', 'file-manager']
   }
 ];
 

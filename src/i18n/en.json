@@ -19,7 +19,8 @@
       "desktop": "Desktop",
       "library": "Library",
       "web": "Web App",
-      "plugin": "Plugin"
+      "plugin": "Plugin",
+      "mobile": "Mobile"
     },
     "viewDetails": "View Details",
     "demo": "Live Demo",

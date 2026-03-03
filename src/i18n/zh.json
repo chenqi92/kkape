@@ -19,7 +19,8 @@
       "desktop": "桌面软件",
       "library": "开发库",
       "web": "Web应用",
-      "plugin": "插件"
+      "plugin": "插件",
+      "mobile": "移动应用"
     },
     "viewDetails": "查看详情",
     "demo": "在线演示",
