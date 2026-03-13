@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#0f172a"/>
+  <rect x="1" y="1" width="798" height="448" rx="12" fill="none" stroke="#1e293b" stroke-width="1"/>
+  <g opacity="0.08">
+    <line x1="0" y1="50" x2="800" y2="50" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="800" y2="100" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="800" y2="200" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="250" x2="800" y2="250" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="350" x2="800" y2="350" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="800" y2="400" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="100" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="500" y1="0" x2="500" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+    <line x1="700" y1="0" x2="700" y2="450" stroke="#06b6d4" stroke-width="0.5"/>
+  </g>
+  <circle cx="400" cy="200" r="40" fill="none" stroke="#1e293b" stroke-width="2"/>
+  <path d="M385 200 L395 210 L415 190" fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+  <text x="400" y="270" text-anchor="middle" fill="#475569" font-family="monospace" font-size="14">Screenshot Placeholder</text>
+</svg>

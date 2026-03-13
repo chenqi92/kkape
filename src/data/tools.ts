@@ -29,6 +29,7 @@ export interface Tool {
   };
   icon?: string;
   image?: string;
+  screenshots?: string[];
   links: {
     website?: string;
     github?: string;
@@ -47,11 +48,154 @@ export interface Tool {
   };
   demo?: ToolDemo;
   tags: string[];
-  screenshots?: string[];
   relatedTools?: string[];
 }
 
 export const tools: Tool[] = [
+  {
+    id: 'nanolink',
+    slug: 'nanolink',
+    category: 'desktop',
+    name: {
+      zh: 'NanoLink',
+      en: 'NanoLink'
+    },
+    tagline: {
+      zh: '轻量级跨平台服务器监控系统',
+      en: 'Lightweight Cross-Platform Server Monitoring'
+    },
+    description: {
+      zh: 'NanoLink 是一个轻量级、跨平台的服务器监控系统，采用 Rust 编写的高性能 Agent，支持 gRPC + Protobuf 通信，提供 Java/Go/Python 多语言 SDK，内置 Vue 3 Dashboard 和 MCP AI 集成。',
+      en: 'NanoLink is a lightweight, cross-platform server monitoring system with a high-performance Rust agent, gRPC + Protobuf communication, multi-language SDKs (Java/Go/Python), Vue 3 dashboard, and MCP AI integration.'
+    },
+    icon: 'server',
+    screenshots: ['/images/tools/nanolink-1.png', '/images/tools/nanolink-2.png'],
+    links: {
+      github: 'https://github.com/chenqi92/NanoLink'
+    },
+    features: {
+      zh: [
+        'Rust Agent 跨平台支持（Windows/macOS/Linux）',
+        'CPU/内存/磁盘/网络/GPU 全方位监控',
+        'gRPC + Protobuf + TLS 安全通信',
+        'Java/Go/Python 多语言 SDK',
+        'Vue 3 实时 Dashboard',
+        'MCP AI/LLM 智能集成',
+        '10 分钟离线数据环形缓存',
+        '多服务器管理与自动重连',
+        'Docker 一键部署'
+      ],
+      en: [
+        'Rust agent with cross-platform support (Windows/macOS/Linux)',
+        'Full monitoring: CPU, Memory, Disk, Network, GPU',
+        'gRPC + Protobuf + TLS secure communication',
+        'Multi-language SDKs: Java, Go, Python',
+        'Vue 3 real-time dashboard',
+        'MCP AI/LLM integration',
+        '10-minute offline ring buffer cache',
+        'Multi-server management with auto-reconnect',
+        'Docker one-click deployment'
+      ]
+    },
+    techStack: ['Rust', 'gRPC', 'Vue 3', 'TypeScript', 'Docker'],
+    tags: ['monitoring', 'server', 'rust', 'grpc', 'cross-platform']
+  },
+  {
+    id: 'deliver-helper',
+    slug: 'deliver-helper',
+    category: 'desktop',
+    name: {
+      zh: '交付助手',
+      en: 'Deliver Helper'
+    },
+    tagline: {
+      zh: '一站式软件交付文档生成工具',
+      en: 'All-in-One Software Delivery Document Generator'
+    },
+    description: {
+      zh: '交付助手是一款强大的桌面工具，集成了软著代码生成、接口文档生成、数据库文档生成、需求规格说明书 (SRS)、系统设计说明书 (SDD) 等功能，并深度集成 AI 大模型辅助文档撰写。',
+      en: 'Deliver Helper is a powerful desktop tool integrating copyright code generation, API documentation, database documentation, SRS, SDD, and deep AI/LLM integration for assisted document writing.'
+    },
+    icon: 'wrench',
+    screenshots: ['/images/tools/deliver-helper-1.png', '/images/tools/deliver-helper-2.png'],
+    links: {
+      github: 'https://github.com/chenqi92/delier-helper'
+    },
+    features: {
+      zh: [
+        '软著代码生成（智能清洗、精确分页、Word 预览）',
+        '多语言接口文档生成（Java/Go/Python/Rust）',
+        '数据库文档生成（MySQL/PostgreSQL）',
+        '需求规格说明书 (SRS) 模板与 AI 填充',
+        '系统设计说明书 (SDD) 自动生成',
+        '集成 13+ AI 大模型提供商',
+        '支持 Ollama/LM Studio 本地模型',
+        '深色/浅色主题切换',
+        'Rust 后端高性能文件处理'
+      ],
+      en: [
+        'Copyright code generation (smart cleaning, precise pagination, Word preview)',
+        'Multi-language API doc generation (Java/Go/Python/Rust)',
+        'Database documentation (MySQL/PostgreSQL)',
+        'SRS template with AI-powered content filling',
+        'SDD auto-generation',
+        '13+ AI/LLM provider integration',
+        'Local model support (Ollama/LM Studio)',
+        'Dark/Light theme switching',
+        'High-performance Rust backend for file I/O'
+      ]
+    },
+    techStack: ['Tauri 2.0', 'Rust', 'Vue 3', 'TypeScript'],
+    tags: ['documentation', 'delivery', 'ai', 'desktop', 'tauri']
+  },
+  {
+    id: 'geo-collector',
+    slug: 'geo-collector',
+    category: 'desktop',
+    name: {
+      zh: 'GeoCollector',
+      en: 'GeoCollector'
+    },
+    tagline: {
+      zh: '多平台地理数据采集与瓦片下载工具',
+      en: 'Multi-Platform GIS Data Collection & Tile Downloader'
+    },
+    description: {
+      zh: 'GeoCollector 是一款功能全面的地理数据采集工具，支持天地图、高德、百度、OSM 等多平台 POI 采集，瓦片地图下载（支持 8+ 地图源），航标数据采集，并提供丰富的数据导出格式。',
+      en: 'GeoCollector is a comprehensive GIS data collection tool supporting multi-platform POI collection (Tianditu, Amap, Baidu, OSM), tile map downloading (8+ map sources), buoy data collection, and multiple export formats.'
+    },
+    icon: 'chart',
+    screenshots: ['/images/tools/geo-collector-1.png', '/images/tools/geo-collector-2.png'],
+    links: {
+      github: 'https://github.com/chenqi92/poi-collector'
+    },
+    features: {
+      zh: [
+        '天地图/高德/百度/OSM 多平台 POI 采集',
+        '长江航道航标数据自动采集',
+        '8+ 地图源瓦片下载（谷歌、百度、天地图等）',
+        '矩形框选 / 行政区域两种区域选择模式',
+        '多级别缩放（1-20 级）与并发控制',
+        '断点续传与失败重试',
+        'MBTiles / ZIP / 文件夹多种输出格式',
+        'API Key 自动轮换',
+        '列表/地图/分屏三种数据查看视图'
+      ],
+      en: [
+        'Multi-platform POI collection (Tianditu/Amap/Baidu/OSM)',
+        'Yangtze River buoy data auto-collection',
+        '8+ map source tile downloading (Google, Baidu, Tianditu, etc.)',
+        'Rectangle / administrative region area selection modes',
+        'Multi-level zoom (1-20) with concurrency control',
+        'Resume download & retry on failure',
+        'MBTiles / ZIP / folder output formats',
+        'Automatic API key rotation',
+        'List / Map / Split-view data browsing'
+      ]
+    },
+    techStack: ['Tauri 2.0', 'Rust', 'React', 'TypeScript', 'SQLite'],
+    tags: ['gis', 'poi', 'tiles', 'map', 'desktop', 'tauri']
+  },
   {
     id: 'inflowave',
     slug: 'inflowave',
@@ -69,6 +213,7 @@ export const tools: Tool[] = [
       en: 'InfloWave is a modern management tool designed specifically for time-series databases, offering an intuitive interface and powerful data visualization capabilities, supporting multiple mainstream time-series databases.'
     },
     icon: 'chart',
+    screenshots: ['/images/tools/inflowave-1.png', '/images/tools/inflowave-2.png'],
     links: {
       website: 'https://inflowave.kkape.com/',
       github: 'https://github.com/chenqi92/inflowave'
@@ -118,6 +263,7 @@ export const tools: Tool[] = [
       en: 'Proto is a powerful online tool for Protobuf, providing encoding, decoding, formatting and other functions for Protobuf messages, supporting code generation for multiple programming languages.'
     },
     icon: 'wrench',
+    screenshots: ['/images/tools/proto-1.png', '/images/tools/proto-2.png'],
     links: {
       website: 'https://proto.kkape.com/zh/',
       github: 'https://github.com/chenqi92/keke-proto-tool'
@@ -168,6 +314,7 @@ export const tools: Tool[] = [
       en: 'An enhanced Excel import/export tool for Spring Boot based on EasyExcel. Implement Excel import/export functionality through annotations, supporting advanced features such as data validation, dictionary conversion, data masking, etc.'
     },
     icon: 'table',
+    screenshots: ['/images/tools/allbs-excel-1.png', '/images/tools/allbs-excel-2.png'],
     links: {
       github: 'https://github.com/chenqi92/allbs-excel',
       docs: 'https://github.com/chenqi92/allbs-excel/blob/master/README.md'
@@ -249,6 +396,7 @@ Basic Usage:
       en: 'A companion test and demo tool for Allbs Excel, providing comprehensive feature demonstrations and an online testing environment to help developers quickly understand and experience the various features of Allbs Excel.'
     },
     icon: 'flask',
+    screenshots: ['/images/tools/allbs-excel-test-1.png', '/images/tools/allbs-excel-test-2.png'],
     links: {
       github: 'https://github.com/chenqi92/allbs-excel-test',
       demo: 'https://github.com/chenqi92/allbs-excel-test'
@@ -292,6 +440,7 @@ Basic Usage:
       en: 'kknas is a feature-rich NAS management app supporting file browsing, video playback, music management, remote terminal, and more. Auto-discovers devices on LAN and provides a smooth multimedia experience.'
     },
     icon: 'server',
+    screenshots: ['/images/tools/kknas-1.png', '/images/tools/kknas-2.png'],
     links: {
       website: 'https://kkape.com/tools/kknas'
     },
