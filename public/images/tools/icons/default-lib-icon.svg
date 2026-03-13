@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+    <defs>
+        <style>
+            /* 定义图标的主色调，您可以修改 #007bff 为您喜欢的颜色 */
+            .main-icon { fill: #007bff; }
+            /* 定义代码符号的颜色和字体 */
+            .code-text { font-family: 'Courier New', Courier, monospace; font-size: 28px; fill: #fff; text-anchor: middle; font-weight: bold; }
+        </style>
+    </defs>
+    <g transform="translate(10, 10) scale(0.8)">
+        <path d="M50 15a35 35 0 1 0 0 70 35 35 0 0 0 0-70zm0 60a25 25 0 1 1 0-50 25 25 0 0 1 0 50z" class="main-icon"/>
+        <rect x="47.5" y="0" width="5" height="15" class="main-icon"/>
+        <rect x="47.5" y="85" width="5" height="15" class="main-icon"/>
+        <rect x="0" y="47.5" width="15" height="5" class="main-icon"/>
+        <rect x="85" y="47.5" width="15" height="5" class="main-icon"/>
+        <rect x="14" y="14" width="5" height="15" transform="rotate(45, 16.5, 21.5)" class="main-icon"/>
+        <rect x="81" y="81" width="5" height="15" transform="rotate(45, 83.5, 88.5)" class="main-icon"/>
+        <rect x="14" y="81" width="5" height="15" transform="rotate(-45, 16.5, 88.5)" class="main-icon"/>
+        <rect x="81" y="14" width="5" height="15" transform="rotate(-45, 83.5, 21.5)" class="main-icon"/>
+        <text x="50" y="58" class="code-text">&lt; /&gt;</text>
+    </g>
+</svg>

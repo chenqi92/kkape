@@ -5,6 +5,8 @@ import ImageGallery from '@components/ImageGallery.astro';
 import { tools, getToolBySlug, getRelatedTools } from '@data/tools';
 import { useTranslations } from '@i18n/index';
 import { getDemoImages } from '@data/demoImages';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export async function getStaticPaths() {
   return tools.map((tool) => ({
@@ -46,6 +48,13 @@ const iconGradients: Record<string, string> = {
 };
 
 const gradClass = iconGradients[tool.icon || ''] || 'from-gray-500 to-gray-600';
+
+// Auto-detect custom icon
+const iconExts = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.ico'];
+const customIcon = iconExts
+  .map(ext => ({ ext, file: path.resolve('public', 'images', 'tools', 'icons', `${tool.slug}${ext}`) }))
+  .find(({ file }) => fs.existsSync(file));
+const customIconSrc = customIcon ? `/images/tools/icons/${tool.slug}${customIcon.ext}` : null;
 ---
 
 <Layout title={tool.name[lang]} description={tool.description[lang]}>
@@ -69,13 +78,15 @@ const gradClass = iconGradients[tool.icon || ''] || 'from-gray-500 to-gray-600';
 
         <div class="flex flex-col sm:flex-row items-start gap-6">
           <!-- Icon -->
-          <div class={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${gradClass} shadow-xl flex-shrink-0`}>
-            {tool.icon === 'chart' && (<svg class="w-8 h-8" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13h2v8H3zM9 9h2v12H9zM15 5h2v16h-2zM21 1h2v20h-2z"/></svg>)}
-            {tool.icon === 'wrench' && (<svg class="w-8 h-8" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>)}
-            {tool.icon === 'table' && (<svg class="w-8 h-8" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/></svg>)}
-            {tool.icon === 'flask' && (<svg class="w-8 h-8" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M10 3v5.172a2 2 0 01-.586 1.414L5 14l1 7h12l1-7-4.414-4.414A2 2 0 0114 8.172V3"/></svg>)}
-            {tool.icon === 'server' && (<svg class="w-8 h-8" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12H3a1 1 0 01-1-1V5a1 1 0 011-1h18a1 1 0 011 1v6a1 1 0 01-1 1h-2M5 12H3a1 1 0 00-1 1v6a1 1 0 001 1h18a1 1 0 001-1v-6a1 1 0 00-1-1h-2M7 8h.01M7 16h.01"/></svg>)}
+          {customIconSrc ? (
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl flex-shrink-0">
+              <img src={customIconSrc} alt={tool.name[lang]} class="w-full h-full object-cover" />
+            </div>
+          ) : (
+          <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-xl flex-shrink-0">
+            <img src="/images/tools/icons/default-lib-icon.svg" alt={tool.name[lang]} class="w-full h-full object-cover" />
           </div>
+          )}
           <!-- Info -->
           <div class="flex-1">
             <div class="flex items-center gap-3 mb-2">
