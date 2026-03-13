@@ -30,6 +30,13 @@ export interface Tool {
   icon?: string;
   image?: string;
   screenshots?: string[];
+  demoImages?: {
+    src: string;
+    caption: {
+      zh: string;
+      en: string;
+    };
+  }[];
   links: {
     website?: string;
     github?: string;

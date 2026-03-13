@@ -2,6 +2,8 @@
 import type { Tool } from '@data/tools';
 import type { Language } from '@i18n/index';
 import { useTranslations } from '@i18n/index';
+import ImageGallery from '@components/ImageGallery.astro';
+import { getDemoImages } from '@data/demoImages';
 
 interface Props {
   tool: Tool;
@@ -10,6 +12,14 @@ interface Props {
 
 const { tool, lang } = Astro.props;
 const t = useTranslations(lang);
+
+// Auto-discover demo images from directory, fall back to manual config
+const autoDemoImages = getDemoImages(tool.slug);
+const manualDemoImages = tool.demoImages?.map(img => img.src) || [];
+const allDemoImages = autoDemoImages.length > 0 ? autoDemoImages : manualDemoImages;
+const demoGalleryImages = autoDemoImages.length > 0
+  ? autoDemoImages.map((src, i) => ({ src, caption: `${tool.name[lang]} - ${i + 1}` }))
+  : (tool.demoImages?.map(img => ({ src: img.src, caption: img.caption[lang] })) || []);
 
 const categoryStyles: Record<string, { bg: string; text: string; dot: string }> = {
   desktop: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', dot: 'bg-cyan-400' },
@@ -87,10 +97,20 @@ const screenshotSrc = tool.screenshots?.[0] || '/images/tools/placeholder.svg';
     </span>
   </div>
 
-  <!-- Name -->
-  <h3 class="text-lg font-bold text-[rgb(var(--color-text-primary))] mb-1 tracking-tight relative z-10">
-    {tool.name[lang]}
-  </h3>
+  <!-- Name + Demo -->
+  <div class="flex items-center gap-2 mb-1 relative z-10">
+    <h3 class="text-lg font-bold text-[rgb(var(--color-text-primary))] tracking-tight">
+      {tool.name[lang]}
+    </h3>
+    {demoGalleryImages.length > 0 && (
+      <ImageGallery
+        images={demoGalleryImages}
+        buttonText={lang === 'zh' ? '演示' : 'Demo'}
+        toolName={tool.name[lang]}
+        compact={true}
+      />
+    )}
+  </div>
   <p class="text-xs font-mono text-primary-500 dark:text-primary-400 mb-3 relative z-10 opacity-80">
     {tool.tagline[lang]}
   </p>
