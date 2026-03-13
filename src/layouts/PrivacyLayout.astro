@@ -1,0 +1,92 @@
+---
+import Layout from './Layout.astro';
+import { getLangFromUrl } from '../i18n/index';
+
+const { frontmatter } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const isZh = lang === 'zh';
+---
+
+<Layout title={`${frontmatter.title} - ${isZh ? '隐私政策' : 'Privacy Policy'}`}>
+  <section class="py-20 relative min-h-screen">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 privacy-grid opacity-[0.02] dark:opacity-[0.04] pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl relative z-10">
+      <!-- Header -->
+      <div class="mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/20 bg-primary-500/5 text-primary-600 dark:text-primary-400 text-xs font-mono mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+          {isZh ? '隐私政策' : 'Privacy Policy'}
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[rgb(var(--color-text-primary))] tracking-tight mb-3">
+          {frontmatter.title}
+        </h1>
+        <p class="text-sm font-mono text-[rgb(var(--color-text-secondary))]">
+          {isZh ? '最后更新：' : 'Last updated: '}{frontmatter.date}
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="prose dark:prose-invert max-w-none privacy-policy-content">
+        <slot />
+      </div>
+
+      <!-- Back link -->
+      <div class="mt-16 pt-6 border-t border-[rgb(var(--color-border))]">
+        <a href={isZh ? '/' : '/en/'} class="inline-flex items-center gap-2 text-sm font-medium text-[rgb(var(--color-text-secondary))] hover:text-primary-500 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          {isZh ? '返回首页' : 'Back to Home'}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  .privacy-grid {
+    background-image:
+      linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .privacy-policy-content h2 {
+    @apply text-xl font-bold text-[rgb(var(--color-text-primary))] mt-10 mb-4 flex items-center gap-2;
+  }
+
+  .privacy-policy-content h2::before {
+    content: '';
+    @apply block w-1 h-5 bg-primary-500 rounded-full flex-shrink-0;
+  }
+
+  .privacy-policy-content p {
+    @apply text-[rgb(var(--color-text-secondary))] leading-relaxed mb-4;
+  }
+
+  .privacy-policy-content ul {
+    @apply list-disc list-outside text-[rgb(var(--color-text-secondary))] space-y-2 mb-4 ml-5;
+  }
+
+  .privacy-policy-content li {
+    @apply leading-relaxed;
+  }
+
+  .privacy-policy-content .permission-card {
+    @apply p-5 rounded-xl border border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-secondary))] mb-4 transition-all duration-300 hover:border-primary-500/30;
+  }
+
+  .privacy-policy-content .permission-card h3 {
+    @apply font-semibold text-[rgb(var(--color-text-primary))] mb-2;
+  }
+
+  .privacy-policy-content .permission-card p {
+    @apply text-[rgb(var(--color-text-secondary))] mb-0 text-sm;
+  }
+
+  .privacy-policy-content a {
+    @apply text-primary-500 hover:text-primary-400 transition-colors;
+  }
+</style>

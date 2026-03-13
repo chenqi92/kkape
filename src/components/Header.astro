@@ -7,47 +7,50 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-primary))]/80 backdrop-blur-sm">
+<header class="sticky top-0 z-50 w-full border-b border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-primary))]/90 backdrop-blur-xl">
   <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
-        <a href={lang === 'zh' ? '/' : `/${lang}`} class="flex items-center space-x-2">
-          <span class="text-2xl">🛠️</span>
-          <span class="text-xl font-bold text-[rgb(var(--color-text-primary))]">
+        <a href={lang === 'zh' ? '/' : `/${lang}`} class="flex items-center space-x-2.5 group">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-md shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <span class="text-lg font-bold text-[rgb(var(--color-text-primary))] tracking-tight">
             {t('site.title')}
           </span>
         </a>
       </div>
 
-      <div class="hidden md:flex items-center space-x-8">
-        <a href={lang === 'zh' ? '/' : `/${lang}`} class="text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
+      <div class="hidden md:flex items-center space-x-1">
+        <a href={lang === 'zh' ? '/' : `/${lang}`} class="px-3 py-2 rounded-lg text-sm font-medium text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgb(var(--color-bg-secondary))] transition-all">
           {t('nav.home')}
         </a>
-        <a href={lang === 'zh' ? '/#tools' : `/${lang}#tools`} class="text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
+        <a href={lang === 'zh' ? '/#tools' : `/${lang}#tools`} class="px-3 py-2 rounded-lg text-sm font-medium text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgb(var(--color-bg-secondary))] transition-all">
           {t('nav.tools')}
         </a>
       </div>
 
-      <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-2">
         <LanguageToggle />
         <ThemeToggle />
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg border border-[rgb(var(--color-border))] hover:bg-[rgb(var(--color-bg-secondary))] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-button" class="md:hidden btn btn-secondary p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </div>
 
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden pb-4">
-      <div class="flex flex-col space-y-2">
-        <a href={lang === 'zh' ? '/' : `/${lang}`} class="text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors py-2">
+      <div class="flex flex-col space-y-1 pt-2 border-t border-[rgb(var(--color-border))]">
+        <a href={lang === 'zh' ? '/' : `/${lang}`} class="px-3 py-2 rounded-lg text-sm font-medium text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgb(var(--color-bg-secondary))] transition-all">
           {t('nav.home')}
         </a>
-        <a href={lang === 'zh' ? '/#tools' : `/${lang}#tools`} class="text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors py-2">
+        <a href={lang === 'zh' ? '/#tools' : `/${lang}#tools`} class="px-3 py-2 rounded-lg text-sm font-medium text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgb(var(--color-bg-secondary))] transition-all">
           {t('nav.tools')}
         </a>
       </div>

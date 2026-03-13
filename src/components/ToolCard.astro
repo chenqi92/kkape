@@ -11,105 +11,122 @@ interface Props {
 const { tool, lang } = Astro.props;
 const t = useTranslations(lang);
 
-const categoryColors: Record<string, string> = {
-  desktop: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  library: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-  web: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  plugin: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-  mobile: 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200',
+const categoryStyles: Record<string, { bg: string; text: string; dot: string }> = {
+  desktop: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', dot: 'bg-cyan-400' },
+  library: { bg: 'bg-emerald-500/10', text: 'text-emerald-400', dot: 'bg-emerald-400' },
+  web:     { bg: 'bg-sky-500/10', text: 'text-sky-400', dot: 'bg-sky-400' },
+  plugin:  { bg: 'bg-amber-500/10', text: 'text-amber-400', dot: 'bg-amber-400' },
+  mobile:  { bg: 'bg-rose-500/10', text: 'text-rose-400', dot: 'bg-rose-400' },
 };
 
-const iconGradients: Record<string, { from: string; to: string }> = {
-  chart:  { from: '#3b82f6', to: '#1d4ed8' },
-  wrench: { from: '#8b5cf6', to: '#6d28d9' },
-  table:  { from: '#10b981', to: '#047857' },
-  flask:  { from: '#f59e0b', to: '#d97706' },
-  server: { from: '#f43f5e', to: '#be123c' },
+const iconGradients: Record<string, string> = {
+  chart:  'from-cyan-500 to-cyan-600',
+  wrench: 'from-sky-500 to-sky-600',
+  table:  'from-emerald-500 to-emerald-600',
+  flask:  'from-amber-500 to-amber-600',
+  server: 'from-rose-500 to-rose-600',
 };
 
-const grad = iconGradients[tool.icon || ''] || { from: '#6b7280', to: '#374151' };
-
+const catStyle = categoryStyles[tool.category] || { bg: 'bg-gray-500/10', text: 'text-gray-400', dot: 'bg-gray-400' };
+const gradClass = iconGradients[tool.icon || ''] || 'from-gray-500 to-gray-600';
 const detailUrl = lang === 'zh' ? `/tools/${tool.slug}` : `/${lang}/tools/${tool.slug}`;
 ---
 
-<div class="card p-6 h-full flex flex-col animate-fade-in">
-  <!-- Icon and Category -->
-  <div class="flex items-start justify-between mb-4">
-    <div class="tool-icon-wrapper w-12 h-12 rounded-xl flex items-center justify-center shadow-md" style={`background: linear-gradient(135deg, ${grad.from}, ${grad.to});`}>
+<article class="tech-card relative flex flex-col h-full rounded-2xl p-6 sm:p-7 border border-[rgb(var(--color-border))] bg-[rgb(var(--color-card))] overflow-hidden transition-all duration-500 hover:border-primary-500/40 hover:shadow-[0_0_40px_rgba(6,182,212,0.06)]">
+  <!-- Scanline decoration -->
+  <div class="absolute inset-0 pointer-events-none opacity-[0.02]" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(6,182,212,0.4) 2px, transparent 3px);"></div>
+
+  <!-- Top row: icon + category -->
+  <div class="flex items-center justify-between mb-5 relative z-10">
+    <div class={`w-11 h-11 rounded-xl flex items-center justify-center bg-gradient-to-br ${gradClass} shadow-lg`}>
       {tool.icon === 'chart' && (
-        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13h2v8H3zM9 9h2v12H9zM15 5h2v16h-2zM21 1h2v20h-2z"/>
         </svg>
       )}
       {tool.icon === 'wrench' && (
-        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
         </svg>
       )}
       {tool.icon === 'table' && (
-        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/>
         </svg>
       )}
       {tool.icon === 'flask' && (
-        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M10 3v5.172a2 2 0 01-.586 1.414L5 14l1 7h12l1-7-4.414-4.414A2 2 0 0114 8.172V3"/>
         </svg>
       )}
       {tool.icon === 'server' && (
-        <svg class="w-6 h-6" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 12H3a1 1 0 01-1-1V5a1 1 0 011-1h18a1 1 0 011 1v6a1 1 0 01-1 1h-2M5 12H3a1 1 0 00-1 1v6a1 1 0 001 1h18a1 1 0 001-1v-6a1 1 0 00-1-1h-2M7 8h.01M7 16h.01"/>
         </svg>
       )}
     </div>
-    <span class={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[tool.category]}`}>
+    <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide ${catStyle.bg} ${catStyle.text}`}>
+      <span class={`w-1.5 h-1.5 rounded-full ${catStyle.dot}`}></span>
       {t(`tools.category.${tool.category}`)}
     </span>
   </div>
 
-  <!-- Name and Tagline -->
-  <h3 class="text-xl font-bold text-[rgb(var(--color-text-primary))] mb-2">
+  <!-- Name -->
+  <h3 class="text-lg font-bold text-[rgb(var(--color-text-primary))] mb-1 tracking-tight relative z-10">
     {tool.name[lang]}
   </h3>
-  <p class="text-sm text-[rgb(var(--color-text-secondary))] mb-4">
+  <p class="text-xs font-mono text-primary-500 dark:text-primary-400 mb-3 relative z-10 opacity-80">
     {tool.tagline[lang]}
   </p>
 
   <!-- Description -->
-  <p class="text-[rgb(var(--color-text-secondary))] text-sm mb-6 flex-grow line-clamp-3">
+  <p class="text-[rgb(var(--color-text-secondary))] text-sm leading-relaxed mb-5 flex-grow line-clamp-3 relative z-10">
     {tool.description[lang]}
   </p>
 
-  <!-- Tags -->
-  <div class="flex flex-wrap gap-2 mb-4">
-    {tool.tags.slice(0, 3).map(tag => (
-      <span class="px-2 py-1 bg-[rgb(var(--color-bg-secondary))] text-[rgb(var(--color-text-secondary))] text-xs rounded">
-        {tag}
+  <!-- Tech stack tags -->
+  <div class="flex flex-wrap gap-1.5 mb-4 relative z-10">
+    {tool.techStack.slice(0, 4).map(tech => (
+      <span class="px-2 py-0.5 bg-primary-500/5 dark:bg-primary-500/10 border border-primary-500/10 dark:border-primary-500/20 text-primary-600 dark:text-primary-300 text-[10px] font-mono rounded-md">
+        {tech}
       </span>
     ))}
   </div>
 
+  <!-- Features preview -->
+  <div class="mb-5 space-y-1.5 relative z-10">
+    {tool.features[lang].slice(0, 3).map(feature => (
+      <div class="flex items-center gap-2">
+        <svg class="w-3 h-3 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+        <span class="text-[11px] text-[rgb(var(--color-text-secondary))] truncate">{feature}</span>
+      </div>
+    ))}
+    {tool.features[lang].length > 3 && (
+      <span class="text-[10px] text-primary-500/60 font-mono ml-5">+{tool.features[lang].length - 3} more</span>
+    )}
+  </div>
+
   <!-- Actions -->
-  <div class="flex flex-wrap gap-2">
-    <a href={detailUrl} class="btn btn-primary text-sm flex-1">
+  <div class="flex items-center gap-2 mt-auto relative z-10">
+    <a href={detailUrl} class="flex-1 text-center py-2.5 px-4 rounded-xl text-sm font-semibold bg-primary-600 text-white hover:bg-primary-500 transition-all shadow-md shadow-primary-600/20 hover:shadow-primary-500/30">
       {t('tools.viewDetails')}
     </a>
     {tool.links.website && (
-      <a href={tool.links.website} target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm">
+      <a href={tool.links.website} target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl border border-[rgb(var(--color-border))] hover:border-primary-500/50 transition-all hover:text-primary-500">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
         </svg>
       </a>
     )}
     {tool.links.github && (
-      <a href={tool.links.github} target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm">
+      <a href={tool.links.github} target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl border border-[rgb(var(--color-border))] hover:border-primary-500/50 transition-all hover:text-primary-500">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
         </svg>
       </a>
     )}
   </div>
-</div>
+</article>
 
 <style>
   .line-clamp-3 {
@@ -117,12 +134,5 @@ const detailUrl = lang === 'zh' ? `/tools/${tool.slug}` : `/${lang}/tools/${tool
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-  .tool-icon-wrapper {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .tool-icon-wrapper:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 </style>

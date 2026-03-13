@@ -5,6 +5,9 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [tailwind()],
   output: 'static',
+  server: {
+    host: '0.0.0.0',
+  },
   i18n: {
     defaultLocale: 'zh',
     locales: ['zh', 'en'],

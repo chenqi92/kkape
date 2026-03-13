@@ -1,29 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --color-bg-primary: 255 255 255;
-    --color-bg-secondary: 249 250 251;
-    --color-text-primary: 17 24 39;
-    --color-text-secondary: 75 85 99;
-    --color-border: 229 231 235;
+    --color-bg-primary: 250 250 250;
+    --color-bg-secondary: 241 245 249;
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 100 116 139;
+    --color-border: 226 232 240;
     --color-card: 255 255 255;
+    --color-glow: 6 182 212;
   }
 
   .dark {
-    --color-bg-primary: 17 24 39;
-    --color-bg-secondary: 31 41 55;
-    --color-text-primary: 243 244 246;
-    --color-text-secondary: 209 213 219;
-    --color-border: 55 65 81;
-    --color-card: 31 41 55;
+    --color-bg-primary: 2 6 23;
+    --color-bg-secondary: 15 23 42;
+    --color-text-primary: 226 232 240;
+    --color-text-secondary: 148 163 184;
+    --color-border: 30 41 59;
+    --color-card: 15 23 42;
+    --color-glow: 6 182 212;
   }
 
   body {
     @apply bg-[rgb(var(--color-bg-primary))] text-[rgb(var(--color-text-primary))];
-    @apply transition-colors duration-200;
+    @apply transition-colors duration-300;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -34,34 +39,56 @@
 @layer components {
   .card {
     @apply bg-[rgb(var(--color-card))] border border-[rgb(var(--color-border))];
-    @apply rounded-lg shadow-sm;
-    @apply transition-all duration-200;
+    @apply rounded-xl shadow-sm;
+    @apply transition-all duration-300;
   }
 
   .card:hover {
-    @apply shadow-md;
+    @apply shadow-lg;
   }
 
   .btn {
     @apply px-4 py-2 rounded-lg font-medium;
-    @apply transition-all duration-200;
+    @apply transition-all duration-300;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700;
+    @apply bg-primary-600 text-white hover:bg-primary-500;
     @apply focus:ring-primary-500;
   }
 
   .btn-secondary {
     @apply bg-[rgb(var(--color-bg-secondary))] text-[rgb(var(--color-text-primary))];
     @apply border border-[rgb(var(--color-border))];
-    @apply hover:bg-[rgb(var(--color-bg-primary))];
+    @apply hover:border-primary-500/50;
   }
 
   .link {
-    @apply text-primary-600 hover:text-primary-700;
-    @apply transition-colors duration-200;
+    @apply text-primary-500 hover:text-primary-400;
+    @apply transition-colors duration-300;
+  }
+
+  /* Tech glow effect */
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.3), transparent 50%, rgba(16,185,129,0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .glow-border:hover::after {
+    opacity: 1;
   }
 }
 
@@ -72,7 +99,7 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -81,9 +108,9 @@ html {
 
 ::-webkit-scrollbar-thumb {
   @apply bg-[rgb(var(--color-border))];
-  @apply rounded-lg;
+  @apply rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-[rgb(var(--color-text-secondary))];
+  @apply bg-primary-600;
 }

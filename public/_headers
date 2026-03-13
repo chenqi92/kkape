@@ -1,0 +1,34 @@
+# Cloudflare Pages 自定义 HTTP 头
+# 用于优化安全性和性能
+
+# 所有页面的通用头
+/*
+  # 安全头
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # 性能优化
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 静态资源缓存（CSS、JS、图片等）
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 字体文件
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+# 图片资源
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+

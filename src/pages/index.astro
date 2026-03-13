@@ -6,67 +6,196 @@ import { getLangFromUrl, useTranslations } from '@i18n/index';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const featured = tools[0]; // InfloWave as featured
+const rest = tools.slice(1);
 ---
 
 <Layout>
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-primary))] mb-6 animate-slide-up">
-          {t('hero.title')}
+  <!-- ============ HERO ============ -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+    <!-- Animated gradient orbs -->
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-primary-500/10 dark:bg-primary-500/20 blur-[120px] top-1/4 -left-48 animate-float pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-accent-500/8 dark:bg-accent-500/15 blur-[100px] bottom-1/4 -right-32 animate-float pointer-events-none" style="animation-delay: -3s;"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-4xl mx-auto">
+        <!-- Animated badge -->
+        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-primary-500/20 bg-primary-500/5 dark:bg-primary-500/10 backdrop-blur-sm mb-10 hero-reveal" style="--delay: 0s;">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+          </span>
+          <span class="text-primary-600 dark:text-primary-400 text-xs font-mono tracking-widest uppercase">
+            Developer Toolkit
+          </span>
+        </div>
+
+        <!-- Big title with gradient text -->
+        <h1 class="hero-reveal" style="--delay: 0.1s;">
+          <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] text-[rgb(var(--color-text-primary))]">
+            {t('hero.title')}
+          </span>
+          <span class="block text-2xl sm:text-3xl md:text-4xl font-light text-primary-500 dark:text-primary-400 mt-3 tracking-tight">
+            {t('hero.subtitle')}
+          </span>
         </h1>
-        <p class="text-xl sm:text-2xl text-[rgb(var(--color-text-secondary))] mb-8 animate-slide-up" style="animation-delay: 0.1s;">
-          {t('hero.subtitle')}
-        </p>
-        <p class="text-lg text-[rgb(var(--color-text-secondary))] mb-12 animate-slide-up" style="animation-delay: 0.2s;">
+
+        <!-- Description -->
+        <p class="mt-8 text-base sm:text-lg text-[rgb(var(--color-text-secondary))] max-w-2xl mx-auto leading-relaxed hero-reveal" style="--delay: 0.2s;">
           {t('hero.description')}
         </p>
-        <a href="#tools" class="btn btn-primary text-lg px-8 py-3 inline-block animate-slide-up" style="animation-delay: 0.3s;">
-          {t('nav.tools')}
-        </a>
+
+        <!-- CTA -->
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4 hero-reveal" style="--delay: 0.3s;">
+          <a href="#tools" class="group relative inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-bold bg-primary-500 text-white overflow-hidden transition-all hover:shadow-[0_0_40px_rgba(6,182,212,0.3)]">
+            <span class="relative z-10 flex items-center gap-2">
+              {t('nav.tools')}
+              <svg class="w-4 h-4 transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-400 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          </a>
+          <a href="https://github.com/chenqi92" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-semibold border border-[rgb(var(--color-border))] hover:border-primary-500/40 text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-all backdrop-blur-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+            GitHub
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-20 grid grid-cols-3 gap-6 max-w-md mx-auto hero-reveal" style="--delay: 0.5s;">
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-black text-[rgb(var(--color-text-primary))] font-mono">{tools.length}</div>
+            <div class="text-[10px] text-[rgb(var(--color-text-secondary))] mt-1 uppercase tracking-[0.2em] font-medium">{lang === 'zh' ? '工具' : 'Tools'}</div>
+          </div>
+          <div class="text-center border-x border-[rgb(var(--color-border))]">
+            <div class="text-3xl sm:text-4xl font-black text-[rgb(var(--color-text-primary))] font-mono">{new Set(tools.map(t => t.category)).size}</div>
+            <div class="text-[10px] text-[rgb(var(--color-text-secondary))] mt-1 uppercase tracking-[0.2em] font-medium">{lang === 'zh' ? '分类' : 'Categories'}</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-black text-primary-500 font-mono">∞</div>
+            <div class="text-[10px] text-[rgb(var(--color-text-secondary))] mt-1 uppercase tracking-[0.2em] font-medium">{lang === 'zh' ? '开源' : 'Open Source'}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[rgb(var(--color-text-secondary))] animate-bounce z-10">
+      <span class="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED TOOL ============ -->
+  <section class="py-24 relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/30 to-transparent"></div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="scroll-reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <!-- Left: Featured Info -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/20 bg-primary-500/5 text-primary-500 text-xs font-mono mb-6">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            {lang === 'zh' ? '推荐工具' : 'Featured'}
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-[rgb(var(--color-text-primary))] tracking-tight mb-4">
+            {featured.name[lang]}
+          </h2>
+          <p class="text-primary-500 font-mono text-sm mb-6">{featured.tagline[lang]}</p>
+          <p class="text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8 text-base">
+            {featured.description[lang]}
+          </p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            {featured.techStack.map(tech => (
+              <span class="px-3 py-1 rounded-lg border border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-secondary))] text-xs font-mono text-[rgb(var(--color-text-secondary))]">
+                {tech}
+              </span>
+            ))}
+          </div>
+          <div class="flex gap-3">
+            <a href={`/tools/${featured.slug}`} class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-primary-500 text-white hover:bg-primary-400 transition-all shadow-lg shadow-primary-500/20">
+              {t('tools.viewDetails')}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+            {featured.links.github && (
+              <a href={featured.links.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border border-[rgb(var(--color-border))] hover:border-primary-500/40 transition-all text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))]">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                Source
+              </a>
+            )}
+          </div>
+        </div>
+        <!-- Right: Featured Visual -->
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-3xl border border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg-secondary))] overflow-hidden relative">
+            <!-- Terminal-like header -->
+            <div class="flex items-center gap-2 px-4 py-3 border-b border-[rgb(var(--color-border))]">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+              </div>
+              <span class="text-[10px] font-mono text-[rgb(var(--color-text-secondary))] ml-2">{featured.name[lang]}</span>
+            </div>
+            <!-- Content area with animated lines -->
+            <div class="p-6 space-y-4">
+              {featured.features[lang].slice(0, 6).map((feature, i) => (
+                <div class="flex items-center gap-3 feature-line" style={`--line-delay: ${i * 0.1}s`}>
+                  <span class="text-primary-500 font-mono text-xs">▸</span>
+                  <span class="text-sm text-[rgb(var(--color-text-secondary))]">{feature}</span>
+                </div>
+              ))}
+            </div>
+            <!-- Decorative glow -->
+            <div class="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-primary-500/10 blur-3xl pointer-events-none"></div>
+          </div>
+          <!-- Corner accents -->
+          <div class="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-primary-500/40 rounded-tr-lg"></div>
+          <div class="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-primary-500/40 rounded-bl-lg"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Tools Section -->
-  <section id="tools" class="py-20">
+  <!-- ============ ALL TOOLS ============ -->
+  <section id="tools" class="py-24 relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/30 to-transparent"></div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-bold text-[rgb(var(--color-text-primary))] mb-4">
-          {t('nav.tools')}
-        </h2>
-        <p class="text-lg text-[rgb(var(--color-text-secondary))] max-w-2xl mx-auto">
-          {t('site.description')}
-        </p>
+      <!-- Section header -->
+      <div class="scroll-reveal mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-1 h-6 bg-primary-500 rounded-full"></div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[rgb(var(--color-text-primary))] tracking-tight">
+              {t('nav.tools')}
+            </h2>
+          </div>
+          <p class="text-[rgb(var(--color-text-secondary))] max-w-lg text-sm">
+            {t('site.description')}
+          </p>
+        </div>
+        <!-- Filter pills -->
+        <div class="flex flex-wrap gap-2">
+          <button data-category="all" class="category-filter active">{t('tools.category.all')}</button>
+          <button data-category="desktop" class="category-filter">{t('tools.category.desktop')}</button>
+          <button data-category="library" class="category-filter">{t('tools.category.library')}</button>
+          <button data-category="web" class="category-filter">{t('tools.category.web')}</button>
+          <button data-category="plugin" class="category-filter">{t('tools.category.plugin')}</button>
+          <button data-category="mobile" class="category-filter">{t('tools.category.mobile')}</button>
+        </div>
       </div>
 
-      <!-- Category Filter -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button data-category="all" class="category-filter btn btn-primary px-6">
-          {t('tools.category.all')}
-        </button>
-        <button data-category="desktop" class="category-filter btn btn-secondary px-6">
-          {t('tools.category.desktop')}
-        </button>
-        <button data-category="library" class="category-filter btn btn-secondary px-6">
-          {t('tools.category.library')}
-        </button>
-        <button data-category="web" class="category-filter btn btn-secondary px-6">
-          {t('tools.category.web')}
-        </button>
-        <button data-category="plugin" class="category-filter btn btn-secondary px-6">
-          {t('tools.category.plugin')}
-        </button>
-        <button data-category="mobile" class="category-filter btn btn-secondary px-6">
-          {t('tools.category.mobile')}
-        </button>
-      </div>
-
-      <!-- Tools Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
-          <div class="tool-card" data-category={tool.category}>
+      <!-- Tools Grid with stagger -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {tools.map((tool, i) => (
+          <div class="tool-card scroll-reveal" data-category={tool.category} style={`--reveal-delay: ${i * 0.08}s`}>
             <ToolCard tool={tool} lang={lang} />
           </div>
         ))}
@@ -75,32 +204,195 @@ const t = useTranslations(lang);
   </section>
 </Layout>
 
+<style is:global>
+  html { scroll-behavior: smooth; }
+
+  /* ── Hero reveal animation ── */
+  .hero-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes heroReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scroll reveal ── */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Feature lines ── */
+  .feature-line {
+    opacity: 0;
+    transform: translateX(-16px);
+    animation: featureSlide 0.5s ease forwards;
+    animation-delay: calc(0.8s + var(--line-delay, 0s));
+  }
+  @keyframes featureSlide {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── Category filter ── */
+  .category-filter {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgb(var(--color-border));
+    color: rgb(var(--color-text-secondary));
+    background: transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .category-filter:hover {
+    border-color: rgba(6,182,212,0.4);
+    color: rgb(var(--color-text-primary));
+  }
+  .category-filter.active {
+    background: rgb(6,182,212);
+    color: white;
+    border-color: rgb(6,182,212);
+    box-shadow: 0 2px 16px rgba(6,182,212,0.35);
+  }
+
+  /* ── Float animation ── */
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+  }
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+</style>
+
 <script>
+  // ── Particle Canvas ──
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    const isDark = document.documentElement.classList.contains('dark');
+    const particleColor = isDark ? 'rgba(6,182,212,' : 'rgba(6,182,212,';
+    const lineColor = isDark ? 'rgba(6,182,212,' : 'rgba(6,182,212,';
+
+    interface Particle { x: number; y: number; vx: number; vy: number; r: number; }
+    const particles: Particle[] = [];
+    const count = Math.min(80, Math.floor(w * h / 15000));
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.5 + 0.5,
+      });
+    }
+
+    let mouse = { x: -1000, y: -1000 };
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    canvas.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = particleColor + '0.5)';
+        ctx.fill();
+
+        // Connect nearby particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x, dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = lineColor + (0.12 * (1 - dist / 150)) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+
+        // Mouse interaction
+        const mdx = p.x - mouse.x, mdy = p.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < 200) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = lineColor + (0.2 * (1 - mDist / 200)) + ')';
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+
+          // Subtle pull
+          p.x += (mouse.x - p.x) * 0.002;
+          p.y += (mouse.y - p.y) * 0.002;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = canvas.offsetWidth;
+      h = canvas.height = canvas.offsetHeight;
+    });
+  }
+
+  // ── Scroll Reveal ──
+  const reveals = document.querySelectorAll('.scroll-reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Category Filter ──
   const filterButtons = document.querySelectorAll('.category-filter');
-  const toolCards = document.querySelectorAll('.tool-card');
+  const toolCards = document.querySelectorAll('.tool-card') as NodeListOf<HTMLElement>;
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
       const category = button.getAttribute('data-category');
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
 
-      // Update active state
-      filterButtons.forEach(btn => {
-        if (btn === button) {
-          btn.classList.remove('btn-secondary');
-          btn.classList.add('btn-primary');
-        } else {
-          btn.classList.remove('btn-primary');
-          btn.classList.add('btn-secondary');
-        }
-      });
-
-      // Filter tools
       toolCards.forEach(card => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         if (category === 'all' || card.getAttribute('data-category') === category) {
           card.style.display = 'block';
-          card.classList.add('animate-fade-in');
+          setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 20);
         } else {
-          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(12px)';
+          setTimeout(() => { card.style.display = 'none'; }, 400);
         }
       });
     });
